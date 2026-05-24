@@ -33,3 +33,6 @@ inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == '"' ? "\<Right>" : "\"
 
 " 2. 核心痛点：在花括号内按回车，自动实现 IDE 格式化换行
 inoremap <expr> <CR> getline('.')[col('.')-2:col('.')-1] == '{}' ? "\<CR>\<ESC>O" : "\<CR>"
+
+
+noremap <F3> :Autoformat<CR>
