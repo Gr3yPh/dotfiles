@@ -1,0 +1,8 @@
+mode=drun,run            # 只显示应用启动器和命令运行
+width=50%                # 宽度只占屏幕的 30%，显得精致
+height=40%               # 高度占 40%
+always_parse_args=true   # 允许传参
+show=drun                # 默认打开时停留在应用列表
+insensitive=true         # 搜索时不区分大小写
+prompt=Scan Systems...   # 搜索框的提示词（黑客味拉满）
+
