@@ -29,3 +29,6 @@ inoremap <expr> <CR> getline('.')[col('.')-2:col('.')-1] == '{}' ? "\<CR>\<ESC>O
 noremap <F3> :Autoformat<CR>
 
 nnoremap <F6> :below terminal<CR>
+
+highlight LineNr guifg=#888888 ctermfg=244
+highlight CursorLineNr guifg=#cccccc ctermfg=248 gui=bold cterm=bold
