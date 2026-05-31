@@ -1,13 +1,13 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Maple Mono NF CN", "JetBrainsMono Nerd Font",FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family:"霞鹜文楷","Maple Mono NF CN", "JetBrainsMono Nerd Font",FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
 }
 
 label,#tray {
 	padding:7px;
 	border-radius:30px;
-    color:#ffffff;
+    color:#34495e;
     opacity:0.8;
 }
 
@@ -109,7 +109,7 @@ button:hover {
 #mpd {
     padding: 10px;
     color: #ffffff;
-    background-color:#000000;
+    background-color:#ffffff;
 }
 
 #window,
@@ -350,7 +350,8 @@ window#waybar #memory,
 window#waybar #network,
 window#waybar #pulseaudio,
 window#waybar #tray {
-    background-color: #000000;
-    color:#ffffff;
+    background-color: #ffffff;
+    color:#34495e;
     opacity:0.75;
+    border: 1px solid #66ccff;
 }
