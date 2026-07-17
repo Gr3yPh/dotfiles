@@ -1,6 +1,6 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family:"霞鹜文楷","Maple Mono NF CN", "JetBrainsMono Nerd Font",FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family:"Noto Serif CJK SC","Maple Mono NF CN", "JetBrainsMono Nerd Font",FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
 }
 
@@ -350,8 +350,8 @@ window#waybar #memory,
 window#waybar #network,
 window#waybar #pulseaudio,
 window#waybar #tray {
-    background-color: #ffffff;
-    color:#34495e;
+    background-color: #000000;
+    color:#ffffff;
     opacity:0.75;
-    border: 1px solid #66ccff;
+    border: 1.5px solid #c74a4a;
 }

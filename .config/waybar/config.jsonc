@@ -189,6 +189,7 @@
         "on-click": "pavucontrol"
     },
     "custom/media": {
+        "on-click": "playerctl play-pause",
         "format": "{icon} {text}",
         "return-type": "json",
         "max-length": 40,
