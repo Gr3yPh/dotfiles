@@ -116,4 +116,23 @@ source ${ZIM_HOME}/init.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# dotfiles
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
+
+# Run Game (车万通用启动器)
+rg() {
+    if [ -z "$1" ]; then
+        echo "请指定exe文件"
+        return 1
+    fi
+
+    gamescope -w 640 -h 480 -W 1920 -H 1080 -b -- wine "$1"
+    
+    killall -9 gamescope wineserver 2>/dev/null
+    echo "[$1] 已退出"
+}
+
+if [ -f "$HOME/.local_env" ]; then
+    source "$HOME/.local_env"
+fi
