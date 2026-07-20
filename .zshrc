@@ -136,3 +136,5 @@ rg() {
 if [ -f "$HOME/.local_env" ]; then
     source "$HOME/.local_env"
 fi
+
+alias emacs='emacs -nw'
