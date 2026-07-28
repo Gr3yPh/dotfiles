@@ -10,7 +10,8 @@
      "98fa2c2a5c9cc2e3fa435a42727f604b1dea5b4cad4aaef47942f2f9ee1e0a1b"
      default))
  '(package-selected-packages
-   '(auto-complete company lsp-ui srcery-theme year-1984-theme)))
+   '(auto-complete company flycheck go-mode lsp-ui srcery-theme
+                   year-1984-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -55,3 +56,16 @@
   :ensure t
   :config
   (global-company-mode))
+
+;; 全局开启相对行号
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode 1)
+
+(use-package lsp-mode
+  :config
+  (setq lsp-diagnostics-provider :flycheck)  ; 改用 flycheck
+  )
+
+(use-package flycheck
+  :config
+  (global-flycheck-mode t))
