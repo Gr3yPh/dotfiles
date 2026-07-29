@@ -27,27 +27,6 @@
 (setq-default tab-width 2)             
 (setq indent-line-function 'insert-tab)
 
-(use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :init
-  (setq lsp-keymap-prefix "C-c l")   ;; 设置 LSP 快捷键前缀
-  :hook (
-         (c++-mode . lsp-deferred)   ; C++
-         (c-mode . lsp-deferred)     ; C
-         (go-mode . lsp-deferred)    ; Go
-         (python-mode . lsp-deferred); Python
-         (web-mode . lsp-deferred)   ; HTML/CSS/JS (如果用 web-mode)
-         (js-mode . lsp-deferred)    ; JavaScript
-         (js2-mode . lsp-deferred)   ; JavaScript (另一个流行模式)
-         (css-mode . lsp-deferred)   ; CSS
-         (java-mode . lsp-deferred)  ; Java
-         )
-  :config
-  (setq lsp-idle-delay 0.1
-        company-idle-delay 0.0
-        company-minimum-prefix-length 1))
-
 (use-package lsp-ui
   :ensure t
   :commands lsp-ui-mode)
@@ -69,3 +48,25 @@
 (use-package flycheck
   :config
   (global-flycheck-mode t))
+
+(use-package eglot
+  :ensure t
+  :hook (
+         ;; 为指定语言自动启用 eglot
+         (c++-mode . eglot-ensure)
+         (c-mode . eglot-ensure)
+         (go-mode . eglot-ensure)
+         (python-mode . eglot-ensure)
+         (java-mode . eglot-ensure)
+         (web-mode . eglot-ensure)
+         (js-mode . eglot-ensure)
+         (css-mode . eglot-ensure)
+         )
+  :config
+  ;; 设置 eglot 自动补全触发延迟（可选）
+  (setq eglot-connect-timeout 30)
+  ;; 让 eglot 使用 company 补全（如果安装了 company）
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (setq company-backends '(company-capf))
+              (company-mode))))
