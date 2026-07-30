@@ -187,15 +187,15 @@ hl.config({
 
 -- https://wiki.hypr.land/Configuring/Variables/#animations
 
-hl.config({
-    animations = {
-        enabled = true,
-        -- Default curves, see https://wiki.hypr.land/Configuring/Animations/#curves
+--hl.config({
+--      animations = {
+--       enabled = true,
+--        -- Default curves, see https://wiki.hypr.land/Configuring/Animations/#curves
         --        NAME,           X0,   Y0,   X1,   Y1
         -- Default animations, see https://wiki.hypr.land/Configuring/Animations/
         --           NAME,          ONOFF, SPEED, CURVE,        [STYLE]
-    },
-})
+--    },
+--})
 
 -- Ref https://wiki.hypr.land/Configuring/Workspace-Rules/
 
@@ -447,21 +447,19 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
--- Super + shift + S  -> SCREENSHOT
+-- 1. Super + Shift + S (区域截图：先通过 slurp 获取坐标，再交给 grim 延迟处理，最后同时复制并保存)
+hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. "S", hl.dsp.exec_cmd("geom=$(slurp) && [ -n \"$geom\" ] && grim -g \"$geom\" - | tee ~/图片/Screenshots/Screenshot_$(date +'%Y%m%d_%H%M%S').png | wl-copy"))
 
-hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. "S", hl.dsp.exec_cmd("grim -g $(slurp)-| tee ~/图片/Screenshots/Screenshot_$(date +'%Y%m%d_%H%M%S').png| wl-copy"))
+-- 2. Ctrl + Super + S (仅区域截图复制到剪贴板)
+hl.bind(mainMod .. " + " .. "CTRL" .. " + " .. "S", hl.dsp.exec_cmd("geom=$(slurp) && [ -n \"$geom\" ] && grim -g \"$geom\" - | wl-copy"))
 
 -- PrtSc -> FULLSCREENSHOT
 
 hl.bind("Print", hl.dsp.exec_cmd("grim ~/图片/Screenshot_$(date +'%Y%m%d_%H%M%S').png"))
 
--- Copy screenshot to clipboard ( wl-clipboard needed )
-
-hl.bind(mainMod .. " + " .. "CTRL" .. " + " .. "S", hl.dsp.exec_cmd("grim -g $(slurp)-| wl-copy"))
-
 -- Super + Alt + R  -> START RECORDING
 
-hl.bind(mainMod .. " + " .. "ALT" .. " + " .. "R", hl.dsp.exec_cmd("wf-recorder -g $(slurp) -f ~/视频/Recording_$(date +'%Y%m%d_%H%M%S').mp4"))
+hl.bind(mainMod .. " + " .. "ALT" .. " + " .. "R", hl.dsp.exec_cmd("wf-recorder -g \"$(slurp)\" -f ~/视频/Recording_$(date +'%Y%m%d_%H%M%S').mp4"))
 
 -- Super + Alt + S  ->  STOP RECORDING
 
