@@ -163,7 +163,7 @@ include current-theme.conf
 #: placed in the cell. For example::
 
 #:     modify_font cell_width 80%
-#:     modify_font cell_height -2px
+ modify_font cell_height 5px
 #:     modify_font baseline 3
 
 #: Note that modifying the baseline will automatically adjust the
@@ -3270,7 +3270,7 @@ include current-theme.conf
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="Courier Prime"
+font_family      family="JetBrainsMono Nerd Font Mono"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
