@@ -163,7 +163,7 @@ include current-theme.conf
 #: placed in the cell. For example::
 
 #:     modify_font cell_width 80%
- modify_font cell_height 5px
+ modify_font cell_height 3px
 #:     modify_font baseline 3
 
 #: Note that modifying the baseline will automatically adjust the
