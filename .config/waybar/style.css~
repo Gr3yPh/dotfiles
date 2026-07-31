@@ -1,6 +1,6 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family:"更纱黑体 SC","Maple Mono NF CN", "JetBrainsMono Nerd Font",FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family:"Noto Serif CJK SC","Maple Mono NF CN", "JetBrainsMono Nerd Font",FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
 }
 

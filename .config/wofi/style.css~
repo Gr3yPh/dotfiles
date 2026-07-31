@@ -1,6 +1,6 @@
 window {
     margin: 0px;
-    font-family:"更纱黑体 SC", "Noto Sans", sans-serif;
+    font-family:"Noto Serif CJK SC", "Noto Sans", sans-serif;
     font-size: 15px;
     font-weight: 500;
     background-color: #000000;
