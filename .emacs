@@ -1,3 +1,11 @@
+;; (setenv "DEEPSEEK_API_KEY" (getenv "DEEPSEEK_API_KEY"))
+
+(setenv "OPENAI_API_BASE" "https://api.deepseek.com")
+
+
+(setq aidermacs-default-model "openai/deepseek-v4-flash")
+
+
 ;;; -*- lexical-binding: t -*-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -10,8 +18,8 @@
      "98fa2c2a5c9cc2e3fa435a42727f604b1dea5b4cad4aaef47942f2f9ee1e0a1b"
      default))
  '(package-selected-packages
-   '(auto-complete company flycheck go-mode lsp-ui lua-mode srcery-theme
-                   year-1984-theme)))
+   '(aidermacs auto-complete company flycheck go-mode lsp-ui lua-mode
+               simple-httpd srcery-theme year-1984-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -70,3 +78,12 @@
             (lambda ()
               (setq company-backends '(company-capf))
               (company-mode))))
+
+(use-package aidermacs
+  :ensure t
+  :bind ("C-c a" . aidermacs-transient-menu)
+  :config
+  ;; 确保环境变量传递给底层进程
+  (setenv "OPENAI_API_BASE" "https://api.deepseek.com")
+  :custom
+  (aidermacs-default-model "openai/deepseek-v4-flash"))

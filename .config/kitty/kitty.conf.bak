@@ -163,7 +163,7 @@ include current-theme.conf
 #: placed in the cell. For example::
 
      modify_font cell_width 100%
- modify_font cell_height 5px
+ modify_font cell_height 4px
 #:     modify_font baseline 3
 
 #: Note that modifying the baseline will automatically adjust the
@@ -1212,7 +1212,7 @@ include current-theme.conf
 #: set the vertical and horizontal sides. Three values set top,
 #: horizontal and bottom. Four values set top, right, bottom and left.
 
-# window_padding_width 0
+window_padding_width 3
 
 #: The window padding (in pts) (blank area between the text and the
 #: window border). A single value sets all four sides. Two values set
@@ -3270,7 +3270,7 @@ include current-theme.conf
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="JetBrainsMono Nerd Font Mono"
+font_family      family="VictorMono Nerd Font"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
