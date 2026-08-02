@@ -141,4 +141,3 @@ fi
 
 export PATH=$PATH:/home/gr3yph4ntom/
 export OTK_EDITOR='emacs -nw %s'
-export OTK_HOME='/mnt/usb/Oier/LGR-295-Div.2/'

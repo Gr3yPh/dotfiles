@@ -195,7 +195,7 @@
         "max-length": 40,
         "format-icons": {
             "spotify": "",
-            "firefox": "",
+            "firefox": "\ue007",
             "default": "\uf001"
         },
         "escape": true,

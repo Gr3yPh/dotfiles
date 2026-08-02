@@ -17,6 +17,7 @@
    '("adbcf269aaae0e40c9d30c244f8a7dc64d4ae719a2ff9e6c46931212cb3d4ee0"
      "98fa2c2a5c9cc2e3fa435a42727f604b1dea5b4cad4aaef47942f2f9ee1e0a1b"
      default))
+ '(inhibit-startup-screen t)
  '(package-selected-packages
    '(aidermacs auto-complete company flycheck go-mode lsp-ui lua-mode
                simple-httpd srcery-theme year-1984-theme)))
