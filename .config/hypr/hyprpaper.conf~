@@ -1,5 +1,5 @@
 wallpaper {
 	monitor =
-	path = ~/.config/hypr/flandre.jpg
+	path = ~/.config/hypr/flandre1.jpg
 	fit_mode = cover
 }
