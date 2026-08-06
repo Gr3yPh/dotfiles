@@ -34,7 +34,7 @@ window#waybar.hidden {
 #language,
 #keyboard-state,
 #workspaces {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(15, 15, 15, 0.4);
     color: #ffffff;
     border: 1.5px solid #c74a4a;
     border-radius: 30px;
