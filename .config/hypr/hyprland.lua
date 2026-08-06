@@ -183,8 +183,21 @@ hl.config({
     },
 })
 
--- TODO: manual review: blurls = "waybar"
-
+--hl.layer_rule({
+--    name = "blur-waybar",
+--    match = { namespace = "waybar" },
+--    blur = true,
+--})
+hl.layer_rule({
+    name = "blur-popups",
+    match = { namespace = "gtk-layer-shell" },
+    blur = true,
+})
+hl.layer_rule({
+    name = "blur-wofi",
+    match = { namespace = "wofi" },
+    blur = true,
+})
 -- https://wiki.hypr.land/Configuring/Variables/#animations
 
 --hl.config({
@@ -196,6 +209,27 @@ hl.config({
         --           NAME,          ONOFF, SPEED, CURVE,        [STYLE]
 --    },
 --})
+
+hl.config({
+    animations = {
+        enabled = true,
+
+        bezier = {
+              "superBouncy, 0.05, 0.9, 0.1, 1.25",
+            "elastic, 0.68, -0.55, 0.265, 1.55",
+            "overshoot, 0.13, 0.99, 0.29, 1.1",
+        },
+
+        animation = {
+              "windowsIn, 1, 5, superBouncy, popin 10%",
+              "windowsOut, 1, 4, overshoot, popin 20%",
+              "windowsMove, 1, 5, superBouncy",
+              "fade, 1, 4, default",
+              "workspaces, 1, 5, superBouncy, slidefade 20%",
+              "specialWorkspace, 1, 5, superBouncy, slidevert",
+        },
+    },
+})
 
 -- Ref https://wiki.hypr.land/Configuring/Workspace-Rules/
 
@@ -300,9 +334,36 @@ hl.config({
             natural_scroll = false,
         },
     },
+    binds = {
+        workspace_back_and_forth = true,
+    },
 })
 
+hl.gesture({
+    fingers = 3,
+    direction = "horizontal",
+    action = "workspace"
+})
+
+hl.gesture({
+    fingers = 3,
+    direction = "up",
+    action = function()
+        hl.exec_cmd("wofi --show drun")
+    end
+})
+
+hl.gesture({
+    fingers = 3,
+    direction = "down",
+    action = "close"
+})
+
+-- hl.gesture({ fingers = 3, direction = "down", action = "close" })
+
 -- See https://wiki.hypr.land/Configuring/Gestures
+
+
 
 -- TODO: manual review: gesture = 3, "horizontal", "workspace"
 
@@ -407,8 +468,8 @@ hl.bind(mainMod .. " + " .. "SHIFT" .. " + " .. 0, hl.dsp.window.move({ workspac
 
 -- Example special workspace (scratchpad)
 
-hl.bind(mainMod .. " + " .. "S", hl.dsp.workspace.toggle_special("magic"))
-
+hl.bind(mainMod .. " + " .. "U", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mainMod .. " + SHIFT + " .. "U", hl.dsp.window.move({workspace = "special:magic"}))
 --bind = $mainMod SHIFT, S, movetoworkspace, special:magic
 
 -- Scroll through existing workspaces with mainMod + scroll
@@ -464,6 +525,8 @@ hl.bind(mainMod .. " + " .. "ALT" .. " + " .. "R", hl.dsp.exec_cmd("wf-recorder 
 -- Super + Alt + S  ->  STOP RECORDING
 
 hl.bind(mainMod .. " + " .. "ALT" .. " + " .. "S", hl.dsp.exec_cmd("killall -s SIGINT wf-recorder"))
+
+
 
 --#############################
 
