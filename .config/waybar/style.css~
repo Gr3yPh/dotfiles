@@ -1,5 +1,5 @@
 * {
-    font-family: FontAwesome, "更纱黑体 SC", "Maple Mono NF CN", "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+    font-family:"JetBrainsMono Nerd Font",FontAwesome, "更纱黑体 SC", "Maple Mono NF CN", Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
     border: none;
     border-radius: 0;
@@ -34,7 +34,7 @@ window#waybar.hidden {
 #language,
 #keyboard-state,
 #workspaces {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(15, 15, 15, 0.4);
     color: #ffffff;
     border: 1.5px solid #c74a4a;
     border-radius: 30px;

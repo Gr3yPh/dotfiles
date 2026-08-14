@@ -1,6 +1,3 @@
--- ==========================================
--- 1. 自动引导安装插件管理器 (lazy.nvim)
--- ==========================================
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -14,22 +11,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- ==========================================
--- 2. 基础编辑器设置 (体验优化)
--- ==========================================
-vim.opt.number = true         -- 显示绝对行号
-vim.opt.relativenumber = true -- 显示相对行号 (Vim 盲打神器)
-vim.opt.tabstop = 2          -- 1个Tab占4个空格
-vim.opt.shiftwidth = 2        -- 自动缩进占4个空格
-vim.opt.expandtab = true      -- 把Tab自动转换为空格
-vim.opt.cursorline = true     -- 高亮当前行
-vim.opt.termguicolors = true  -- 开启真彩色支持 (高亮和文件树需要)
+vim.opt.number = true         
+vim.opt.relativenumber = true
+vim.opt.tabstop = 2         
+vim.opt.shiftwidth = 2     
+vim.opt.expandtab = true   
+vim.opt.cursorline = true 
+vim.opt.termguicolors = true
 
--- ==========================================
--- 3. 插件安装配置 (只装你需要的东西)
--- ==========================================
 require("lazy").setup({
-  -- 【文件管理器】：左侧文件树
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -39,8 +29,6 @@ require("lazy").setup({
       })
     end,
   },
-
-  -- 【代码高亮】：Treesitter 语法解析
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -52,57 +40,67 @@ require("lazy").setup({
     end,
   },
 
-  -- 【符号自动闭合】
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     config = true,
   },
 
-  -- 【LSP 基础配置与自动补全】
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
     },
     config = function()
       local cmp = require("cmp")
+      local luasnip = require("luasnip")
+
       cmp.setup({
         snippet = {
           expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(), 
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
             else
               fallback()
             end
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-          { name = "nvim-lsp" },
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+        }, {
+          { name = "buffer" },
+          { name = "path" },
         }),
-      }) -- <-- 检查这里：cmp.setup 的右括号和逗号
+      })
 
-      -- ==========================================
-      -- LSP 服务自动激活 (2026 最新原生标准写法)
-      -- ==========================================
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- 创建一个通用的底层配置
-      local default_config = {
-        capabilities = capabilities,
-      }
-
-      -- 当打开对应语言的文件时，自动启动 LSP
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "go", "gomod" },
         callback = function()
@@ -116,8 +114,7 @@ require("lazy").setup({
           vim.lsp.start({ name = "clangd", cmd = { "clangd" }, capabilities = capabilities })
         end,
       })
-
-    end, 
+    end,
   },
   {
     "olimorris/codecompanion.nvim",
@@ -127,12 +124,10 @@ require("lazy").setup({
     },
     config = function()
       require("codecompanion").setup({
-        -- 1. 指定默认的聊天和行内补全策略都走 deepseek
         strategies = {
           chat = { adapter = "deepseek" },
           inline = { adapter = "deepseek" },
         },
-        -- 2. 完美的自定义适配器：对接 DeepSeek
         adapters = {
           deepseek = function()
             return require("codecompanion.adapters").extend("openai", {
@@ -151,30 +146,39 @@ require("lazy").setup({
       })
     end,
   },
+  {
+    "Mofiqul/adwaita.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+        vim.g.adwaita_disable_cursorline = true 
+        vim.g.adwaita_transparent = true       
+        vim.cmd('colorscheme adwaita')
+    end
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup({
+        options = {
+          theme = "auto", 
+          component_separators = { left = "⟩", right = "⟨" },
+          section_separators = { left = "", right = "" },
+        },
+      })
+    end,
+  },
 })      
 
--- ==========================================
--- 4. 快捷键设置
--- ==========================================
--- 设置你的 Leader 键为空格 (Vim 圈的常识，方便按快捷键)
 vim.g.mapleader = " "
 
--- 按 空格 + e 打开/关闭左侧文件树
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 
--- 光标停在报错/警告行，按 空格 + d 查看详细错误
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Show line diagnostics' })
 
--- 按 [d 或 ]d 可以在文件中的多个报错之间快速跳转
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 
--- ==========================================
--- CodeCompanion (DeepSeek) 侧边栏快捷键
--- ==========================================
-
--- 1. 按 空格 + cc 打开/关闭 AI 对话侧边栏
 vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionActions<CR>", { desc = "AI Actions Menu" })
-
--- 2. 快速一键直接切出右侧聊天分屏 (Normal & Visual 模式通用)
 vim.keymap.set({ "n", "v" }, "<leader>ct", "<cmd>CodeCompanionChat Toggle<CR>", { desc = "Toggle AI Chat" })
